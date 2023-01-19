@@ -1,0 +1,22 @@
+1 - ID OMM station; --> Lieu
+2 - Date; --> date
+3 - Pression au niveau mer; --> -p
+4 - Direction du vent moyen 10 mn; --> -w
+5 - Vitesse du vent moyen 10 mn;  --> -w
+6 - Humidité; --> -m
+7 - Pression station;  --> -p
+8 - Variation de pression en 24 heures; --> -p
+9 - Précipitations dans les 24 dernières heures; /
+10 - Coordonnees; --> Lieu
+11 - Température (°C); --> -t
+12 - Température minimale sur 24 heures (°C); --> -t
+13 - Température maximale sur 24 heures (°C); --> -t
+14 - Altitude;  --> -h
+15 - communes (code) --> Lieu
+
+cat meteo.csv | cut -d ';'-f10,11
+lat - long
+tr ',' ';' = transforme les virgules en point virugules
+wc -l = lire les lignes
+awk -F ';' '{if($2=>'"X"' && $2<='"Y"')print $0}'
+
