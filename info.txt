@@ -20,3 +20,54 @@ tr ',' ';' = transforme les virgules en point virugules
 wc -l = lire les lignes
 awk -F ';' '{if($2=>'"X"' && $2<='"Y"')print $0}'
 
+Lieux lattitude - longitude
+Guyane 
+	LatMax = 6
+	LatMin = 1
+	LongMin = -57
+	LongMax = -51
+France métropolitaine 
+	LatMax = 51
+	LatMin = 40
+	LongMin = -4
+	LongMax = 10
+Saint pierre et miquelon
+	LatMax = 48
+	LatMin = 46
+	LongMin = -57
+	LongMax = -55
+Antilles
+	LatMax = 18
+	LatMin = 12
+	LongMin = -65
+	LongMax = -58
+Ocean Indien
+	LatMax = 20
+	LatMin = -50
+	LongMin = 30
+	LongMax = 140
+Antarctique
+	LatMax = -50
+
+
+if [ -n "$str8" ] ; then 
+	arg8=",13"
+fi
+if [ -n "$str7" ] ; then
+	arg7=",12"
+fi
+if [ -n "$str6" ] ; then
+	arg6=",14,15"
+fi
+if [ -n "$str5" ] ; then
+	arg5=",9,10,11"
+	if [ $str5 = '-t2' ] || [ $str5 = '-t3' ] ; then 
+		argdate=",5"
+	fi
+fi
+if [ -n "$str4" ] ; then
+	arg4=",6,7,8"
+	if [ $str4 = '-p2' ] || [ $str4 = '-p3' ] ; then 
+		argdate=",5"
+	fi
+fi
