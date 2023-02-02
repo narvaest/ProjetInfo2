@@ -70,14 +70,14 @@ while ((i < k)) ; do
 							exit 8
 						fi
 						str4=$arg
-						arg4=",3,7,8"
+						arg4=",7"
 					elif [ $arg = '-t1' ] || [ $arg = '-t2' ] || [ $arg = '-t3' ] ; then
 						if [ -n "$str5" ] ; then 
 							echo "Data "$str5" already given. Exit of the program."
 							exit 8
 						fi
 						str5=$arg
-						arg5=",12,13,14"
+						arg5=",12"
 					elif [ $arg = '-w' ] ; then
 						if [ -n "$str6" ] ; then 
 							echo "Data "$str6" already given. Exit of the program."
@@ -168,23 +168,26 @@ if [ -n "$str4" ] ; then
 	case "$str4" in
 		-p1) cat $str2 | cut -d ';' -f1"$arg4" | awk -F ';' '{if($2!='"0"' || $3!='"0"' || $4!='"0"')print $0}' > sortpressure.csv
 		#Envoi au C
-	
+		gcc -o main main.c
+		./main sortpressure.csv tri.csv $str4 $str1 	
 		#Appel d'un fichier gnuplot?
-
+		#gnuplot -persist 1.gnu
 		#rm sortpressure.csv
 		;;
 		-p2) cat $str2 | cut -d ';' -f1,2"$arg4" | awk -F ';' '{if($3!='"0"' || $4!='"0"' || $5!='"0"')print $0}' > sortpressure.csv
 		#Envoi au C
-	
+		gcc -o main main.c
+		./main sortpressure.csv tri.csv $str4 $str1 	
 		#Appel d'un fichier gnuplot?
-
+		#gnuplot -persist 2.gnu
 		#rm sortpressure.csv
 		;;
 		-p3) cat $str2 | cut -d ';' -f1,2"$arg4" | awk -F ';' '{if($3!='"0"' || $4!='"0"' || $5!='"0"')print $0}' > sortpressure.csv
 		#Envoi au C
-	
+		gcc -o main main.c
+		./main sortpressure.csv tri.csv $str4 $str1 	
 		#Appel d'un fichier gnuplot?
-
+		#gnuplot -persist 3.gnu
 		#rm sortpressure.csv
 		;;
 	esac
@@ -196,25 +199,28 @@ if [ -n "$str5" ] ; then
 		argdatet=",2"
 	fi
 	case "$str5" in
-		-p1) cat $str2 | cut -d ';' -f1"$arg5" | awk -F ';' '{if($2!='"0"' || $3!='"0"' || $4!='"0"')print $0}' > sorttemperature.csv
+		-t1) cat $str2 | cut -d ';' -f1"$arg5" | awk -F ';' '{if($2!='"0"' || $3!='"0"' || $4!='"0"')print $0}' > sorttemperature.csv
 		#Envoi au C
-	
+		gcc -o main main.c
+		./main sorttemperature.csv tri.csv $str5 $str1 
 		#Appel d'un fichier gnuplot?
-
+		#gnuplot -persist 1.gnu
 		#rm sorttemperature.csv
 		;;
-		-p2) cat $str2 | cut -d ';' -f1,2"$arg5" | awk -F ';' '{if($3!='"0"' || $4!='"0"' || $5!='"0"')print $0}' > sorttemperature.csv
+		-t2) cat $str2 | cut -d ';' -f1,2"$arg5" | awk -F ';' '{if($3!='"0"' || $4!='"0"' || $5!='"0"')print $0}' > sorttemperature.csv
 		#Envoi au C
-	
+		gcc -o main main.c
+		./main sorttemperature.csv tri.csv $str5 $str1 	
 		#Appel d'un fichier gnuplot?
-
+		#gnuplot -persist 2.gnu
 		#rm sorttemperature.csv
 		;;
-		-p3) cat $str2 | cut -d ';' -f1,2"$arg5" | awk -F ';' '{if($3!='"0"' || $4!='"0"' || $5!='"0"')print $0}' > sorttemperature.csv
+		-t3) cat $str2 | cut -d ';' -f1,2"$arg5" | awk -F ';' '{if($3!='"0"' || $4!='"0"' || $5!='"0"')print $0}' > sorttemperature.csv
 		#Envoi au C
-	
+		gcc -o main main.c
+		./main sorttemperature.csv tri.csv $str5 $str1 	
 		#Appel d'un fichier gnuplot?
-
+		#gnuplot -persist 3.gnu
 		#rm sorttemperature.csv
 		;;
 	esac
@@ -225,8 +231,10 @@ echo "Loading 50%"
 if [ -n "$str6" ] ; then
 	cat $str2 | cut -d ';' -f1"$arg6" | awk -F ';' '{if($2!='"0"' || $3!='"0"')print$0}' > sortwind.csv
 	#Envoi au C
-	
-	
+	gcc -o main main.c
+	./main sortwind.csv tri.csv $str6 $str1 	
+	#Appel d'un fichier gnuplot?	
+	#gnuplot -persist w.gnu
 	#rm sortwind.csv
 fi
 
@@ -234,8 +242,10 @@ echo "Loading 60%"
 if [ -n "$str7" ] ; then
 	cat $str2 | cut -d ';' -f1"$arg7" | awk -F ';' '{if($2!='"0"')print $0}' > sortheight.csv
 	#Envoi au C
-	
-	
+	gcc -o main main.c
+	./main sortheight.csv tri.csv $str7 $str1
+	#Appel d'un fichier gnuplot?	
+	#gnuplot -persist h.gnu
 	#rm sortheight.csv
 fi
 
@@ -243,8 +253,10 @@ echo "Loading 70%"
 if [ -n "$str8" ] ; then
 	cat $str2 | cut -d ';' -f1"$arg8" | awk -F ';' '{if($2!='"0"')print $0}' > sortmoisture.csv
 	#Envoi au C
-	
-	
+	gcc -o main main.c
+	./main sortmoisture.csv tri.csv $str8 $str1 	
+	#Appel d'un fichier gnuplot?
+	#gnuplot -persist m.gnu
 	#rm sortmoisture.csv
 fi
 
@@ -258,4 +270,5 @@ echo "Loading 100%"
 #- comment envoyer au c
 #- gnuplot
 #- date (jsp si ça marche)?
+
 

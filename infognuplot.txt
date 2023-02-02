@@ -1,0 +1,79 @@
+INFO Gnuplot 
+
+plot "nom.csv" (p "nom.csv")
+replot (rep)
+title "titre"
+linetype (lt) 7  | pointtype (pt) 
+linecolor (lc) 0  | pointsize (pc)
+linesize (ls) | pointsize (ps)
+lw ? | pw ? 
+set style line 1 lc rgb "#8b0000" lw 2
+show style line
+
+with linepoints (w lp) = ajoute des lignes entre les points
+with lines = que les lignes
+with point (default = que les points
+with errorbars = ajoute les barres d'erreurs
+using (us) 1:2:3 (normal) / using 1:2:($3/1000) : modifie les valeurs
+unset key (unset k) = enleve les légendes != set key 
+set key bottom left = endroit des légendes
+set key at [x] [y]
+set key width 1 = augmente la box des légendes
+set key font "Arial,14"
+
+set xlabel "Nom des données de l'abscisse"
+set ylabel "Nom des données de l'ordonnée"
+set xrange [Xmin,Xmax] = modifie les valeurs d'abscisses
+set xtics min,pas,max = modifie les tics / xtics ("0" 0, "label" 5) = modifie les légendes des tics 
+set tics scale
+set grid = ajout d'un quadrillage 
+set border [nombre] = ajoute / supprime la bordure --> set tics nomirror
+
+
+set terminal png/pngcairo size 800,600 font "arial,12"     !=  set terminal 'wxt'
+set output "dataImg.png"  = créé une image dans le dossier
+
+show variables a 
+
+
+plot command, [....] = la virgule separt les données
+
+
+
+
+
+
+
+
+-f [fichier entrée] -o [fichier sortie] [mode] [type de tri]
+-o [fichier sortie]  [type de tri] -f [fichier entrée] [mode]
+
+
+if (strcmp (argv[5], "--abr")==0) {
+		
+}
+
+char* imput_file = argv[0];
+char* output_file = argv[1];
+char* data = argv[2];
+char* mode = argv[3];
+
+
+if(strcmp (data, "-h")== 0){
+	#tri selon 2eme colonne, décroissant
+	if (strcmp (argv[3], "--abr")==0) {
+		#Utilisation ABR
+	}
+}
+else if (strcmp (data, "-t1") == 0){
+	#tri de temperature station --> 1ere colonne, croissant
+}	
+
+ 
+
+argc = nombre de variables
+argv[0] = sorttemperature.csv
+argv[1] = tri.csv
+argv[2] = -p1
+argv[3] =  --avl
+for i
