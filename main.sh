@@ -15,7 +15,12 @@ while ((i < k)) ; do
 	arg=${!i}
 	case "$arg" in 
 		#SORT
-		--*) if [ -n "$str1" ] ; then 
+		--*) 
+			if [ $arg = '--help' ] ; then 
+				echo -e "Hello World !\nWelcome in our weather project.\nThis is an aid to help you understand how to use our program. You can sort our program via 3 modes. \nFirst of all, it is imperative to enter the file containing the data by following this formulation: -f <file>\nIf we do not find this data, the program will not even take the time to respond to your request. \nNow here are the features we included in the script : \n*******************************************************************************************************\n1 ) GEOGRAPHICAL POSITIONS. You can process your data according to their geographical positions. Only one geographical position is authorized but if no place has been entered, the software will take everything into account. Here is more info :\n\t-F : Metropolitan France\n\t-G : French Guyana\n\t-S : Saint-Pierre et Miquelon\n\t-A : French West Indies\n\t-O : Indian Ocean\n\t-Q : Antarctic\n*******************************************************************************************************\n2) SORT TYPE. You can sort your data using a specific sorting type. Only one type of sort is authorized but if no type of sort has been entered, the software will sort the data with an avl. Here is more info :\n\t--avl : AVL\n\t--abr : ABR\n\t--tab : TAB\n*******************************************************************************************************\n3) TYPE OF DATA. Several types of data are allowed to you. You can use as much data as you want, but one of them is necessary for the program to work. Here is more info :\n\t-p<number> : Pressure\n\t-t<number> : Temperature\n\t-w : Wind\n\t-m : Moisture \n\t-h : Height\nWarning : <number> correspond to different type of sorting. It's between 1 and 3 and must be informed.\n*******************************************************************************************************\nThanks you for using our program ! "
+				exit 99
+			fi
+			if [ -n "$str1" ] ; then 
 					echo "Only one sort possible. Exit of the program."
 					exit 6
 			fi
@@ -111,18 +116,18 @@ done
 
 
 #if type de tri non renseigné --> avl
-if [ ! "$str1" ] ; then
+if [ -z "$str1" ] ; then
 	str1="--avl"
 fi
 
 #if -f non renseigné --> message d'erreur
-if [ ! "$str2" ] ; then
+if [ -z "$str2" ] ; then
 	echo "File not detected. The program will be empty. End of the program."
 	exit 12
 fi
 
 #if pas d'options choisies --> message d'erreur
-if [ ! "$str4" ] && [ ! "$str5" ] && [ ! "$str6" ] && [ ! "$str7" ] && [ ! "$str8" ] ; then
+if [ -z "$str4" ] && [ -z "$str5" ] && [ -z "$str6" ] && [ -z "$str7" ] && [ -z "$str8" ] ; then
 	echo "Data not detected. The program will be empty. End of the program."
 	exit 13
 fi
@@ -160,48 +165,97 @@ echo "Loading 30%"
 
 
 if [ -n "$str4" ] ; then
-	echo "$str4"
-	if [ "$str4" = '-p2' ] || [ "$str4" = '-p3' ] ; then 
-		argdatep=",2"
-	fi
-	cat $str2 | cut -d ';' -f1"$arg4""$argdatep" | awk -F ';' '{if($2!='"0"' || $3!='"0"' || $4!='"0"')print $0}' > sortpressure.csv
+	case "$str4" in
+		-p1) cat $str2 | cut -d ';' -f1"$arg4" | awk -F ';' '{if($2!='"0"' || $3!='"0"' || $4!='"0"')print $0}' > sortpressure.csv
+		#Envoi au C
+	
+		#Appel d'un fichier gnuplot?
+
+		#rm sortpressure.csv
+		;;
+		-p2) cat $str2 | cut -d ';' -f1,2"$arg4" | awk -F ';' '{if($3!='"0"' || $4!='"0"' || $5!='"0"')print $0}' > sortpressure.csv
+		#Envoi au C
+	
+		#Appel d'un fichier gnuplot?
+
+		#rm sortpressure.csv
+		;;
+		-p3) cat $str2 | cut -d ';' -f1,2"$arg4" | awk -F ';' '{if($3!='"0"' || $4!='"0"' || $5!='"0"')print $0}' > sortpressure.csv
+		#Envoi au C
+	
+		#Appel d'un fichier gnuplot?
+
+		#rm sortpressure.csv
+		;;
+	esac
 fi
 
 echo "Loading 40%"
 if [ -n "$str5" ] ; then
-	echo "$str5"
 	if [ "$str5" = '-t2' ] || [ "$str5" = '-t3' ] ; then 
 		argdatet=",2"
 	fi
-	cat $str2 | cut -d ';' -f1"$arg5""$argdatet" | awk -F ';' '{if($2!='"0"' || $3!='"0"' || $4!='"0"')print $0}' > sorttemperature.csv
+	case "$str5" in
+		-p1) cat $str2 | cut -d ';' -f1"$arg5" | awk -F ';' '{if($2!='"0"' || $3!='"0"' || $4!='"0"')print $0}' > sorttemperature.csv
+		#Envoi au C
+	
+		#Appel d'un fichier gnuplot?
+
+		#rm sorttemperature.csv
+		;;
+		-p2) cat $str2 | cut -d ';' -f1,2"$arg5" | awk -F ';' '{if($3!='"0"' || $4!='"0"' || $5!='"0"')print $0}' > sorttemperature.csv
+		#Envoi au C
+	
+		#Appel d'un fichier gnuplot?
+
+		#rm sorttemperature.csv
+		;;
+		-p3) cat $str2 | cut -d ';' -f1,2"$arg5" | awk -F ';' '{if($3!='"0"' || $4!='"0"' || $5!='"0"')print $0}' > sorttemperature.csv
+		#Envoi au C
+	
+		#Appel d'un fichier gnuplot?
+
+		#rm sorttemperature.csv
+		;;
+	esac
+
 fi
 
 echo "Loading 50%"
-if [ -n "str6" ] ; then
-	echo "$str6"
+if [ -n "$str6" ] ; then
 	cat $str2 | cut -d ';' -f1"$arg6" | awk -F ';' '{if($2!='"0"' || $3!='"0"')print$0}' > sortwind.csv
+	#Envoi au C
+	
+	
+	#rm sortwind.csv
 fi
 
 echo "Loading 60%"
-if [ -n "str7" ] ; then
-	echo "$str7"
+if [ -n "$str7" ] ; then
 	cat $str2 | cut -d ';' -f1"$arg7" | awk -F ';' '{if($2!='"0"')print $0}' > sortheight.csv
+	#Envoi au C
+	
+	
+	#rm sortheight.csv
 fi
 
 echo "Loading 70%"
-if [ -n "str8" ] ; then
-	echo "$str8"
+if [ -n "$str8" ] ; then
 	cat $str2 | cut -d ';' -f1"$arg8" | awk -F ';' '{if($2!='"0"')print $0}' > sortmoisture.csv
+	#Envoi au C
+	
+	
+	#rm sortmoisture.csv
 fi
 
 echo "Loading 100%"
 
 
-#Problèmes à régler 
+
+
+#Ce qu'il me reste à faire 
 #- awk --> valeur nulle ?
-#- problème ligne 125
 #- comment envoyer au c
-#- --help
-#- supprimer le fichier après utilisations
-#- date ?
+#- gnuplot
+#- date (jsp si ça marche)?
 
