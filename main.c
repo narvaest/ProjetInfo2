@@ -85,58 +85,58 @@ void Traversal_Inft1(FILE*fp_out,TreeNode* pTree){
 
 // -------------------------------TRAVERSAL p1----------------------------------
 
-void processp1(FILE* fp_out,TreeNode* pTree){
+void processp1(FILE* fp_outp1,TreeNode* pTree){
     if(pTree==NULL){
         exit(11);
     }
     if(!isEmpty(pTree)){
-        fprintf(fp_out, "%d;%f\n", pTree->ID,pTree->press);
+        fprintf(fp_outp1, "%d;%f\n", pTree->ID,pTree->press);
     }
 }
 
-void Traversal_Infp1(FILE*fp_out,TreeNode* pTree){
+void Traversal_Infp1(FILE*fp_outp1,TreeNode* pTree){
     if(!isEmpty(pTree)){
-        Traversal_Infp1(fp_out, pTree->pLeft);
-        processp1(fp_out, pTree);
-        Traversal_Infp1(fp_out, pTree->pRight);
+        Traversal_Infp1(fp_outp1, pTree->pLeft);
+        processp1(fp_outp1, pTree);
+        Traversal_Infp1(fp_outp1, pTree->pRight);
     }
 }
 
 // -------------------------------TRAVERSAL h-------------------------------------
 
-void processh(FILE* fp_out,TreeNode* pTree){
+void processh(FILE* fp_outh,TreeNode* pTree){
     if(pTree==NULL){
         exit(11);
     }
     if(!isEmpty(pTree)){
-        fprintf(fp_out, "%d;%d\n", pTree->height,pTree->ID);
+        fprintf(fp_outh, "%d;%d\n", pTree->height,pTree->ID);
     }
 }
 
-void Traversal_Infh(FILE*fp_out,TreeNode* pTree){
+void Traversal_Infh(FILE*fp_outh,TreeNode* pTree){
     if(!isEmpty(pTree)){
-        Traversal_Infh(fp_out, pTree->pRight);
-        processp1(fp_out, pTree);
-        Traversal_Infh(fp_out, pTree->pLeft);
+        Traversal_Infh(fp_outh, pTree->pRight);
+        processp1(fp_outh, pTree);
+        Traversal_Infh(fp_outh, pTree->pLeft);
     }
 }
 
 //------------------------------TRAVERSAL m---------------------------------------
 
-void processm(FILE* fp_out,TreeNode* pTree){
+void processm(FILE* fp_outm,TreeNode* pTree){
     if(pTree==NULL){
         exit(11);
     }
     if(!isEmpty(pTree)){
-        fprintf(fp_out, "%d;%d\n", pTree->moisture,pTree->ID);
+        fprintf(fp_outm, "%d;%d\n", pTree->moisture,pTree->ID);
     }
 }
 
-void Traversal_Infm(FILE*fp_out,TreeNode* pTree){
+void Traversal_Infm(FILE*fp_outm,TreeNode* pTree){
     if(!isEmpty(pTree)){
-        Traversal_Infh(fp_out, pTree->pRight);
-        processp1(fp_out, pTree);
-        Traversal_Infh(fp_out, pTree->pLeft);
+        Traversal_Infm(fp_outm, pTree->pRight);
+        processp1(fp_outm, pTree);
+        Traversal_Infm(fp_outm, pTree->pLeft);
     }
 }
 
@@ -286,6 +286,30 @@ int Check_file(FILE* fp_in){
     fseek(fp_in, -1 , SEEK_CUR);
     return F;
 }
+int Check_filep1(FILE* fp_inp1){
+    int F = 1;
+    if( fgetc(fp_inp1) != EOF ){
+        F = 0;
+    }
+    fseek(fp_inp1, -1 , SEEK_CUR);
+    return F;
+}
+int Check_fileh(FILE* fp_inh){
+    int F = 1;
+    if( fgetc(fp_inh) != EOF ){
+        F = 0;
+    }
+    fseek(fp_inh, -1 , SEEK_CUR);
+    return F;
+}
+int Check_filem(FILE* fp_inm){
+    int F = 1;
+    if( fgetc(fp_inm) != EOF ){
+        F = 0;
+    }
+    fseek(fp_inm, -1 , SEEK_CUR);
+    return F;
+}
 // -------------------------------------------------------------------------
 
 int main(int argc, char *argv[]) {
@@ -297,6 +321,18 @@ int main(int argc, char *argv[]) {
     if(fp_out==NULL){
         exit(19);
     }
+    FILE *fp_inp1 = fopen("sortpressure.csv","r");
+    
+    FILE *fp_outp1 = fopen("sortpressure.txt","w");
+
+    FILE *fp_inh = fopen("sortheight.csv","r");
+
+    FILE *fp_outh = fopen("sortheight.txt","w");
+
+    FILE *fp_inm = fopen("sortmoisture.csv","r");
+
+    FILE *fp_outm = fopen("sortmoisture.txt","w");
+
     char *input_filet1 = "sorttemperature.csv";
     char *output_filet1 = "sorttemperature.txt";
     char *input_filep1 = "sortpressure.csv";
@@ -372,28 +408,24 @@ int main(int argc, char *argv[]) {
 
                   if(strcmp(option,"--abr") == 0) {
 
-                      while (Check_file(fp_in) == 0) {
-                          fscanf(fp_in, "%d;%f", &ID, &press);
+                      while (Check_filep1(fp_inp1) == 0) {
+                          fscanf(fp_inp1, "%d;%f", &ID, &press);
                           pTree = insertABRp1(pTree, ID, press);
                       }
-                      Traversal_Infp1(fp_out, pTree);// write in output file
-                      fclose(fp_in);
-                      fclose(fp_out);
+                      Traversal_Infp1(fp_outp1, pTree);// write in output file
+                      fclose(fp_inp1);
+                      fclose(fp_outp1);
                   }
                   else if (strcmp(option, "--avl") == 0) {
 
-                      while (Check_file(fp_in) == 0) {
-                          fscanf(fp_in, "%d;%f", &ID, &press);
+                      while (Check_filep1(fp_inp1) == 0) {
+                          fscanf(fp_inp1, "%d;%f", &ID, &press);
                           // insertAVLt1(pTree, ID, temp);
                           // prog avl ...
                       }
-                      fp_out = fopen(output_filep1, "w");
-                      if (fp_out == NULL) {
-                          return ERROR_OUTPUT_FILE;
-                      }
-                      Traversal_Infp1(fp_out, pTree); // write in output file
-                      fclose(fp_in);
-                      fclose(fp_out);
+                      Traversal_Infp1(fp_outp1, pTree); // write in output file
+                      fclose(fp_inp1);
+                      fclose(fp_outp1);
                   }
                   else {
                       puts("incorrect option");
@@ -419,24 +451,24 @@ int main(int argc, char *argv[]) {
 
                   if(strcmp(option,"--abr") == 0) {
 
-                      while (Check_file(fp_in) == 0) {
-                          fscanf(fp_in, "%d;%d", &ID, &height);
+                      while (Check_fileh(fp_inh) == 0) {
+                          fscanf(fp_inh, "%d;%d", &ID, &height);
                           pTree = insertABRh(pTree, ID, height);
                       }
-                      Traversal_Infh(fp_out, pTree);// write in output file
-                      fclose(fp_in);
-                      fclose(fp_out);
+                      Traversal_Infh(fp_outh, pTree);// write in output file
+                      fclose(fp_inh);
+                      fclose(fp_outh);
                   }
                   else if (strcmp(option, "--avl") == 0) {
 
-                      while (Check_file(fp_in) == 0) {
-                          fscanf(fp_in, "%d;%d", &ID, &height);
+                      while (Check_fileh(fp_inh) == 0) {
+                          fscanf(fp_inh, "%d;%d", &ID, &height);
                           // insertAVLt1(pTree, ID, temp);
                           // prog avl ...
                       }
-                      Traversal_Infh(fp_out, pTree); // write in output file
-                      fclose(fp_in);
-                      fclose(fp_out);
+                      Traversal_Infh(fp_outh, pTree); // write in output file
+                      fclose(fp_inh);
+                      fclose(fp_outh);
                   }
                   else {
                       puts("incorrect option");
@@ -462,24 +494,24 @@ int main(int argc, char *argv[]) {
 
                   if(strcmp(option,"--abr") == 0) {
 
-                      while (Check_file(fp_in) == 0) {
-                          fscanf(fp_in, "%d;%d", &ID, &moisture);
+                      while (Check_filem(fp_inm) == 0) {
+                          fscanf(fp_inm, "%d;%d", &ID, &moisture);
                           pTree = insertABRm(pTree, ID, moisture);
                       }
-                      Traversal_Infm(fp_out, pTree);// write in output file
-                      fclose(fp_in);
-                      fclose(fp_out);
+                      Traversal_Infm(fp_outm, pTree);// write in output file
+                      fclose(fp_inm);
+                      fclose(fp_outm);
                   }
                   else if (strcmp(option, "--avl") == 0) {
 
-                      while (Check_file(fp_in) == 0) {
-                          fscanf(fp_in, "%d;%d", &ID, &moisture);
+                      while (Check_filem(fp_inm) == 0) {
+                          fscanf(fp_inm, "%d;%d", &ID, &moisture);
                           // insertAVLt1(pTree, ID, temp);
                           // prog avl ...
                       }
-                      Traversal_Infm(fp_out, pTree); //  write in output file
-                      fclose(fp_in);
-                      fclose(fp_out);
+                      Traversal_Infm(fp_outm, pTree); //  write in output file
+                      fclose(fp_inm);
+                      fclose(fp_outm);
                   }
                   else {
                       puts("incorrect option");
