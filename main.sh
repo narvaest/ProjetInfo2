@@ -176,26 +176,31 @@ if [ -n "$str4" ] ; then
 		-p1) cat $str2 | cut -d ';' -f1"$arg4"  | awk -F ';' '{if($2!="")print $0}' > sortpressure.csv
 		#C
 		gcc -o main main.c
-		./main sortpressure.csv tri.csv $str4 $str1 	
+		./main sortpressure.csv sortpressure.txt $str4 $str1 	
 		#gnuplot?
-		#gnuplot -persist p1.gnu
-		#rm sortpressure.csv
+		gnuplot -persist p1.gnu
+		eog 1.png
+		rm sortpressure.csv sortpressure.txt 1.png 1.txt
 		;;
 		-p2) cat $str2 | cut -d ';' -f1,2"$arg4" | awk -F ';' '{if($2!="")print $0}' > sortpressure.csv
 		#C
 		gcc -o main main.c
-		./main sortpressure.csv tri.csv $str4 $str1 	
+		./main sortpressure.csv sortpressure.txt $str4 $str1 	
 		#gnuplot?
-		#gnuplot -persist 2.gnu
-		#rm sortpressure.csv
+		#cat sortpressure.txt | tr ';' ' ' > 2.txt
+		#gnuplot -persist p2.gnu
+		#eog 2.png
+		#rm sortpressure.csv sortpressure.txt 2.png 2.txt
 		;;
 		-p3) cat $str2 | cut -d ';' -f1,2"$arg4" | awk -F ';' '{if($2!="")print $0}' > sortpressure.csv
 		#C
 		gcc -o main main.c
-		./main sortpressure.csv tri.csv $str4 $str1 	
+		./main sortpressure.csv sortpressure.txt $str4 $str1 	
 		#gnuplot?
-		#gnuplot -persist 3.gnu
-		#rm sortpressure.csv
+		#cat sortpressure.txt | tr ';' ' ' > 3.txt
+		#gnuplot -persist p3.gnu
+		#eog 3.png
+		#rm sortpressure.csv sortpressure.txt 3.png 3.txt
 		;;
 	esac
 fi
@@ -209,29 +214,32 @@ if [ -n "$str5" ] ; then
 		-t1) cat $str2 | cut -d ';' -f1"$arg5" | awk -F ';' '{if($2!="")print $0}'  > sorttemperature.csv
 		#C
 		gcc -o main main.c
-		./main sorttemperature.csv tri.csv $str5 $str1 
+		./main sorttemperature.csv sorttemperature.txt $str5 $str1 
 		#gnuplot?
-		#gnuplot -persist 1.gnu
-		#rm sorttemperature.csv
-		#rm tri.csv
+		cat sorttemperature.txt | tr ';' ' ' > 1.txt  
+		gnuplot -persist t1.gnu
+		eog 1.png
+		rm sorttemperature.csv sorttemperature.txt 1.txt 1.png
 		;;
 		-t2) cat $str2 | cut -d ';' -f1,2"$arg5" | awk -F ';' '{if($3!="")print $0}' > sorttemperature.csv
 		#C
 		gcc -o main main.c
-		./main sorttemperature.csv tri.csv $str5 $str1 	
+		./main sorttemperature.csv sorttemperature.txt $str5 $str1 	
 		#gnuplot?
-		#gnuplot -persist 2.gnu
-		#rm sorttemperature.csv
-		#rm tri.csv
+		#cat sorttemperature.txt | tr ';' ' ' > 2.txt
+		#gnuplot -persist t2.gnu
+		#eog 2.png
+		#rm sorttemperature.csv sorttemperature.txt 2.png 2.txt
 		;;
 		-t3) cat $str2 | cut -d ';' -f1,2"$arg5" | awk -F ';' '{if($3!="")print $0}' > sorttemperature.csv
 		#C
 		gcc -o main main.c
-		./main sorttemperature.csv tri.csv $str5 $str1 	
+		./main sorttemperature.csv sorttemperature.txt $str5 $str1 	
 		#gnuplot?
-		#gnuplot -persist 3.gnu
-		#rm sorttemperature.csv
-		#rm tri.csv
+		#cat sorttemperature.txt | tr ';' ' ' > 3.txt
+		#gnuplot -persist p3.gnu
+		#eog 3.png
+		#rm sorttemperature.csv sorttemperature.txt 3.png 3.txt
 		;;
 	esac
 
@@ -245,11 +253,12 @@ if [ -n "$str6" ] ; then
 	cat $str2 | cut -d ';' -f1"$arg6" | awk -F ';' '{if($2!="" && $3!="")print $0}' > sortwind.csv
 	#C
 	gcc -o main main.c
-	./main sortwind.csv tri.csv $str6 $str1 	
+	./main sortwind.csv sortwind.txt $str6 $str1 	
 	#gnuplot?	
+	#cat sortwind.txt | tr ';' ' ' > w.txt
 	#gnuplot -persist w.gnu
-	#rm sortwind.csv
-	#rm tri.csv
+	#eog w.png
+	#rm sortwind.csv sortwind.txt w.png w.txt
 fi
 
 
@@ -260,11 +269,12 @@ if [ -n "$str7" ] ; then
 	cat $str2 | cut -d ';' -f1"$arg7" | awk -F ';' '{if($2!="")print $0}' > sortheight.csv
 	#C
 	gcc -o main main.c
-	./main sortheight.csv tri.csv $str7 $str1
+	./main sortheight.csv sortheight.txt $str7 $str1
 	#gnuplot?	
-	#gnuplot -persist interpoledmap.gnu
-	#rm sortheight.csv
-	#rm tri.csv
+	#cat sortheight.txt | tr ';' ' ' > h.txt
+	#gnuplot -persist h.gnu
+	#eog h.png
+	#rm sortheight.csv sortheight.txt h.png h.txt
 fi
 
 
@@ -275,15 +285,19 @@ if [ -n "$str8" ] ; then
 	cat $str2 | cut -d ';' -f1"$arg8" | awk -F ';' '{if($2!="")print $0}' > sortmoisture.csv
 	#C
 	gcc -o main main.c
-	./main sortmoisture.csv tri.csv $str8 $str1 	
+	./main sortmoisture.csv sortmoisture.txt $str8 $str1 	
 	#gnuplot?
-	#gnuplot -persist interpoledmap.gnu
-	#rm sortmoisture.csv
-	#rm tri.csv
+	#cat sortmoisture.txt | tr ';' ' ' > m.txt
+	#gnuplot -persist m.gnu
+	#eog m.png
+	#rm sortmoisture.csv sortmoisture.txt m.png m.txt
 fi
 
 
-#rm sortedplaces.csv
+echo "Loading 80%"
+echo "Loading 90%"
+
+rm sortedplaces.csv
 echo "Loading 100%"
 
 

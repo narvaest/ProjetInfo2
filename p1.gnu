@@ -6,4 +6,4 @@ set yrange [90000:110000]
 unset key
 set terminal png size 500,500
 set output '1.png'
-plot "testetet.txt" using 1:2:(($4-$3)/2) w errorbars
+plot "1.txt" using 1:2:(($4-$3)/2) w errorbars

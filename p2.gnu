@@ -6,5 +6,9 @@ set xlabel "Date"
 set ylabel "moy pressure"
 set terminal png size 500,500
 set output '2.png'
+set xdata time 
+set timefmt "%m/%d/%Y %H:%M"
+set xrange datum
+set format x "%d/%m/%Y "
 
-plot "testetet.txt" using 2:3 with lines
+plot "2.txt" using 2:3 with lines
