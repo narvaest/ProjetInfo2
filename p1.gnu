@@ -6,4 +6,4 @@ set yrange [90000:110000]
 unset key
 set terminal png size 1000,500
 set output '1.png'
-plot "1.txt" using 1:2 w l
+plot "1.txt" using 1:2 with lines
