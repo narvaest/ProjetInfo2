@@ -12,4 +12,4 @@ Jordan : C
 
 
 
-Merci d'utiliser notre programme!
+Merci pour votre lecture!
