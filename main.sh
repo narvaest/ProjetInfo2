@@ -178,9 +178,10 @@ if [ -n "$str4" ] ; then
 		gcc -o main main.c
 		./main sortpressure.csv sortpressure.txt $str4 $str1 	
 		#gnuplot?
-		gnuplot -persist p1.gnu
-		eog 1.png
-		rm sortpressure.csv sortpressure.txt 1.png 1.txt
+		#cat sortpressure.txt | tr ';' ' ' > 1.txt 
+		#gnuplot -persist p1.gnu
+		#eog 1.png
+		#rm sortpressure.csv sortpressure.txt 1.png 1.txt
 		;;
 		-p2) cat $str2 | cut -d ';' -f1,2"$arg4" | awk -F ';' '{if($2!="")print $0}' > sortpressure.csv
 		#C
@@ -219,7 +220,7 @@ if [ -n "$str5" ] ; then
 		cat sorttemperature.txt | tr ';' ' ' > 1.txt  
 		gnuplot -persist t1.gnu
 		eog 1.png
-		rm sorttemperature.csv sorttemperature.txt 1.txt 1.png
+		#rm sorttemperature.csv sorttemperature.txt 1.txt 1.png
 		;;
 		-t2) cat $str2 | cut -d ';' -f1,2"$arg5" | awk -F ';' '{if($3!="")print $0}' > sorttemperature.csv
 		#C
