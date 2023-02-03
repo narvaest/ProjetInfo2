@@ -10,6 +10,8 @@ Répartition du travail :
 Yannis : Shell (& Gnuplot)
 Jordan : C
 
-
+Nous avons un problème dans la partie C (probablement dans le lien entre shell & c), les fichiers ne sont donc pas triés.
+La partie C fonctionne mais pas la partie fichier associé.
+De plus, certains gnuplot produisent des graphiques si on utilise un fichier déjà trié.
 
 Merci pour votre lecture!
