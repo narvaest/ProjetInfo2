@@ -10,8 +10,9 @@ Répartition du travail :
 Yannis : Shell (& Gnuplot)
 Jordan : C
 
-Nous avons un problème dans la partie C (probablement dans le lien entre shell & c), les fichiers ne sont donc pas triés.
-La partie C fonctionne mais pas la partie fichier associé.
-De plus, certains gnuplot produisent des graphiques si on utilise un fichier déjà trié.
+Nous avons un problème dans la partie C (probablement dans le lien entre shell & c), donc certains fichiers ne sont donc pas triés.
+De plus, certains gnuplot n'ont pas été réalisé.
+
+Seule la fonction -t1 et -p1 produisent un résultat.
 
 Merci pour votre lecture!
