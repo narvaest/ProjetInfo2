@@ -217,9 +217,9 @@ if [ -n "$str5" ] ; then
 		gcc -o main main.c
 		./main sorttemperature.csv sorttemperature.txt $str5 $str1 
 		#gnuplot?
-		cat sorttemperature.txt | tr ';' ' ' > 1.txt  
-		gnuplot -persist t1.gnu
-		eog 1.png
+		#cat sorttemperature.txt | tr ';' ' ' > 1.txt  
+		#gnuplot -persist t1.gnu
+		#eog 1.png
 		#rm sorttemperature.csv sorttemperature.txt 1.txt 1.png
 		;;
 		-t2) cat $str2 | cut -d ';' -f1,2"$arg5" | awk -F ';' '{if($3!="")print $0}' > sorttemperature.csv
